@@ -1,0 +1,22 @@
+{
+  "name": "puppeteer-primer-proyecto",
+  "version": "1.0.0",
+  "description": "aqui hice un intento por crear una api rest para interactuar e obtner informacion de los de youtube usando la pagina de y2mate.com",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index"
+  },
+  "keywords": [
+    "y2mate",
+    "puppeteer",
+    "api",
+    "rest"
+  ],
+  "author": "joselmm",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "puppeteer": "^19.7.5"
+  }
+}
