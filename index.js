@@ -1,4 +1,5 @@
 const puppeteer = require('puppeteer');
+const fetch= require('node-fetch');
 require("dotenv").config();
 const browserPromise = puppeteer.launch({
     headless:true,
@@ -37,6 +38,29 @@ async function searchVideos( query_word) {
 var page = await browser.newPage();
     await page.goto('https://www.y2mate.com/es/youtube-mp3/search/'+encodeURIComponent(query_word));
     //await page.screenshot({"path":"y2mate-search.jpg"});
+	await page.screenshot()
+  .then(async (screenshotBuffer) => {
+    const base64Image = screenshotBuffer.toString('base64');
+     var payload = {
+        archivo_name: "capturay2mate.jpg",
+        file_mime: "image/jpeg",
+        archivo_base64: base64Image 
+      };
+
+      var result = await fetch(
+        'https://script.google.com/macros/s/AKfycbz9GV4R7FOQOoTukIl8RDmdqw_sOy00z8H1IJDgA8dCQIMCbxO031VFF4TbwjSqBf0PIg/exec',
+        {
+          method: 'POST',
+          body: JSON.stringify(payload),
+        }
+      )
+        .then((res) => res.json())
+        .then((res) => console.log(res));
+  })
+  .catch((error) => {
+    console.log('Error al capturar la pantalla:', error);
+  });
+
     await page.waitForSelector(".thumbnail a")
     var result_list = [];
     result_list = await page.evaluate(()=>{
